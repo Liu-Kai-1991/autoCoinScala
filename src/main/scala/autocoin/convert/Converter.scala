@@ -6,7 +6,9 @@ import autocoin.system.OrderType._
 import org.knowm.xchange.dto.trade.{LimitOrder => JOrder}
 import org.knowm.xchange.dto.marketdata.{OrderBook => JOrderBook}
 import org.knowm.xchange.dto.Order.{OrderType => JOrderType}
-import org.knowm.xchange.currency.{CurrencyPair => JCurrencyPair}
+import org.knowm.xchange.currency.{CurrencyPair => JCurrencyPair, Currency => JCurrency}
+
+import scala.util.Try
 
 object Converter {
 
@@ -29,9 +31,20 @@ object Converter {
     }
   }
 
+  implicit class JCurrencyImplicit(jObj: JCurrency) {
+    def toCurrency: Currency = Currency(jObj.getCurrencyCode)
+    def toCurrencyOption: Option[Currency] = Currency.currencyMap.get(jObj.getCurrencyCode)
+  }
+
   implicit class JCurrencyPairImplicit(jObj: JCurrencyPair) {
     def toCurrencyPair: CurrencyPair = CurrencyPair(
       Currency(jObj.base.getCurrencyCode), Currency(jObj.counter.getCurrencyCode))
+
+    def toCurrencyPairOption: Option[CurrencyPair] = {
+      val base = jObj.base.toCurrencyOption
+      val counter = jObj.counter.toCurrencyOption
+      if (base.isDefined && counter.isDefined) Some(CurrencyPair(base.get, counter.get)) else None
+    }
   }
 
   implicit class JOrderImplicit(jObj: JOrder) {
@@ -40,5 +53,4 @@ object Converter {
       jObj.getTradableAmount.doubleValue,
       jObj.getLimitPrice.doubleValue)
   }
-
 }

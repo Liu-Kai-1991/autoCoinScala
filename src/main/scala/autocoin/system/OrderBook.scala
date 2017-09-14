@@ -2,6 +2,7 @@ package autocoin.system
 
 import java.util.Date
 import autocoin.system.OrderType.OrderType
+import scala.collection.immutable._
 
 trait OrderBook extends CurrencyPairFeature {
   def askOrders: Seq[Order]

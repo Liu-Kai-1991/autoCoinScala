@@ -1,9 +1,12 @@
-import autocoin.system.{CurrencyPair, Exchange}
+import autocoin.system.{Currency, CurrencyPair, Exchange}
 
 object TestRun extends App {
-  println("Hello World")
-  val bitstamp = Exchange("Livecoin")
+  val bitstamp = Exchange.Bittrex
   val marketDataService = bitstamp.marketDataService
-  val orderBook = marketDataService.getOrderBook(CurrencyPair.BTC_USD).filterRange(0.1)
-  orderBook.askOrders foreach println
+  bitstamp.getExchangeSymbols.foreach{
+    pair =>
+      println(pair)
+      val orderBook = marketDataService.getOrderBook(pair, Some(0.05))
+      orderBook.askOrders foreach println
+  }
 }
