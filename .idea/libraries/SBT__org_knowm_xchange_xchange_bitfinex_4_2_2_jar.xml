@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: org.knowm.xchange:xchange-bitfinex:4.2.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.knowm.xchange/xchange-bitfinex/jars/xchange-bitfinex-4.2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.knowm.xchange/xchange-bitfinex/srcs/xchange-bitfinex-4.2.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
