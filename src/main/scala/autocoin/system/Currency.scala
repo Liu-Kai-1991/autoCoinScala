@@ -16,8 +16,6 @@ case class DigitalCurrency private(commonCode: String) extends Currency {
   lazy val toJCurrency: JCurrency = commonCode match {
     case "BTC" => JCurrency.BTC
     case "ETH" => JCurrency.ETH
-    case "MSC" => JCurrency.MSC
-    case "DOGE" => JCurrency.DOGE
   }
 }
 
@@ -31,10 +29,8 @@ object Currency {
   val USD = RealCurrency("USD")
   val BTC = DigitalCurrency("BTC")
   val ETH = DigitalCurrency("ETH")
-  val MSC = DigitalCurrency("MSC")
-  val DOGE = DigitalCurrency("DOGE")
 
-  val currencies = Vector(USD, BTC, ETH, MSC, DOGE)
+  val currencies = Vector(USD, BTC, ETH)
   val realCurrencies: Vector[RealCurrency] = currencies.collect { case c: RealCurrency => c }
   val digitalCurrencies: Vector[DigitalCurrency] = currencies.collect { case c: DigitalCurrency => c }
   val currencyMap: Map[String, Currency] = currencies.map(c => c.commonCode -> c).toMap
